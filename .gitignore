@@ -1,0 +1,6 @@
+freeswitch/log/
+freeswitch/logs/
+freeswitch/db/
+*.bak*
+*.fsxml
+*.log

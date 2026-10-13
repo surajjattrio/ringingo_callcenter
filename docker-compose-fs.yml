@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+  freeswitch:
+    build: ./freeswitch
+    container_name: ivr-freeswitch-container
+    image: freeswitch:latest
+    privileged: true
+    network_mode: "host"
+    restart: always
+    #ports:
+    #  - 5060:5060
+    #  - 5080:5080
+    #  - 8021:8021
+    #  - 10000-60000:10000-60000
+    environment:
+      - MONGO_URI=mongodb://db_pbxcc:qxR3aghkOaZToadsJed3q@103.36.121.197:3815/db_pbxcc?authSource=db_pbxcc
+    command: >
+      sh -c "mkdir -p /usr/local/freeswitch/conf/autoloadconf &&
+      mkdir -p /usr/local/freeswitch/scripts &&
+      mkdir -p /usr/local/freeswitch/log/json_cdr &&
+      mkdir -p /usr/local/freeswitch/log/json_cdr_archive &&
+      exec freeswitch"
+    volumes:
+      - /var/www/html/callcenter/freeswitch/log:/usr/local/freeswitch/log
+      - /var/www/html/callcenter/freeswitch/log/json_cdr:/usr/local/freeswitch/log/json_cdr
+      - /var/www/html/callcenter/freeswitch/log/json_cdr_archive:/usr/local/freeswitch/log/json_cdr_archive
+      - /root/docker/sounds:/usr/local/freeswitch/sounds
+      - /var/www/html/callcenter/freeswitch/conf/autoload_configs/json_cdr.conf.xml:/usr/local/freeswitch/conf/autoload_configs/json_cdr.conf.xml
+      - /var/www/html/callcenter/freeswitch/conf/autoload_configs/event_socket.conf.xml:/usr/local/freeswitch/conf/autoload_configs/event_socket.conf.xml
+      - /var/www/html/callcenter/freeswitch/conf/autoload_configs/lua.conf.xml:/usr/local/freeswitch/conf/autoload_configs/lua.conf.xml
+      - /var/www/html/callcenter/freeswitch/scripts:/usr/local/freeswitch/scripts
+      - /var/www/html/callcenter/freeswitch/conf:/usr/local/freeswitch/conf
+      #- /var/www/html/callCenter/freeswitch/recordings:/usr/local/freeswitch/recordings
+      - /usr/local/freeswitch/recordings:/usr/local/freeswitch/recordings
+      #- /home/unified/dockers/docker/freeswitch/scripts:/usr/local/freeswitch/scripts
+      - /var/www/html/callcenter/freeswitch/db:/usr/local/freeswitch/db
+      - /opt/caching:/opt/caching
+      - /etc/ssl/godaddy_ssl:/usr/local/freeswitch/certs
+      - /etc/localtime:/etc/localtime:ro
+    #/home/unified/dockers/docker/ssl/:/IVR/ssl"
+    #networks:
+    #  - unifyxcess-network
+    #deploy:
+    #  resources:
+    #    limits:
+    #      cpus: "16"
+    #      memory: "32G"
+
+volumes:
+  dbdata:

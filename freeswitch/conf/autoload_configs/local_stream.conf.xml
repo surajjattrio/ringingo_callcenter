@@ -1,0 +1,42 @@
+<configuration name="local_stream.conf" description="stream files from local dir">
+
+  <!--
+    Sirf 8000 Hz rakha gaya hai.
+    Dono SIP profiles (external, uaegsmgateway) PCMA/PCMU = narrowband 8 kHz hain,
+    aur WebRTC leg bhi ab OPUS narrowband (maxplaybackrate=8000) pe hai.
+    16000/32000/48000 directories hata di gayi:
+      - 188 KB/s ka 24x7 disk read bacha
+      - 188 MB page cache bacha
+      - 3 background threads kam
+  -->
+
+  <directory name="default" path="$${sounds_dir}/music/8000">
+    <param name="rate"       value="8000"/>
+    <param name="shuffle"    value="true"/>
+    <param name="channels"   value="1"/>
+    <param name="interval"   value="20"/>
+    <param name="timer-name" value="soft"/>
+  </directory>
+
+  <directory name="moh/8000" path="$${sounds_dir}/music/8000">
+    <param name="rate"       value="8000"/>
+    <param name="shuffle"    value="true"/>
+    <param name="channels"   value="1"/>
+    <param name="interval"   value="20"/>
+    <param name="timer-name" value="soft"/>
+  </directory>
+
+  <!--
+    Safety fallback: local_stream://moh pehle "moh/<rate>" dhundta hai,
+    na mile to plain "moh". Agar kabhi koi leg 16k/48k negotiate kare to
+    ye 8k source resample ho kar chalega - MOH kabhi fail nahi hoga.
+  -->
+  <directory name="moh" path="$${sounds_dir}/music/8000">
+    <param name="rate"       value="8000"/>
+    <param name="shuffle"    value="true"/>
+    <param name="channels"   value="1"/>
+    <param name="interval"   value="20"/>
+    <param name="timer-name" value="soft"/>
+  </directory>
+
+</configuration>

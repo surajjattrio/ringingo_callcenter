@@ -1,0 +1,13 @@
+<configuration name="cdr_mongodb.conf" description="MongoDB CDR logger">
+  <settings>
+    <!-- Hostnames and IPv6 addrs not supported (yet) -->
+    <param name="host" value="103.36.121.196"/>
+    <param name="port" value="3870"/>
+
+    <!-- Namespace format is database.collection -->
+    <param name="namespace" value="test.cdr"/>
+
+    <!-- If true, create CDR for B-leg of call (default: true) -->
+    <param name="log-b-leg" value="false"/>
+  </settings>
+</configuration>

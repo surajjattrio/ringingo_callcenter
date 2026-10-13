@@ -1,0 +1,30 @@
+# ─────────────────────────────────────────────────────────────────
+# Fast derived image: original FreeSWITCH build + jemalloc allocator
+# ─────────────────────────────────────────────────────────────────
+#
+# KYUN: glibc malloc long-running multi-thread servers ki memory OS ko
+# wapas nahi karta. FreeSWITCH ka RSS 2,977 MB pe atak gaya tha jabki
+# actual use ~150 MB thi. jemalloc background thread se continuously
+# purge karta hai, isliye memory load ke saath ghatti-badhti hai.
+#
+# YE FILE KYUN ZAROORI HAI: main Dockerfile FreeSWITCH ko source se
+# compile karta hai (45+ min, aur `git clone -b v1.10` moving target hai).
+# Sirf jemalloc add karne ke liye itna bada rebuild karna risky hai.
+# Ye derived image 1 minute me ban jaati hai.
+#
+# NOTE: main Dockerfile me bhi `libjemalloc2` add kar diya gaya hai,
+# to poora rebuild karne par is file ki zaroorat nahi rahegi.
+#
+# BUILD:
+#   cd /var/www/html/callcenter/freeswitch
+#   docker build -f Dockerfile.jemalloc -t freeswitch:latest .
+#
+FROM freeswitch:rollback-20260903
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends libjemalloc2 \
+ && rm -rf /var/lib/apt/lists/* \
+ && test -f /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+# entrypoint.sh khud detect karta hai ki jemalloc maujood hai ya nahi
+# aur uske hisaab se LD_PRELOAD set karta hai (dekhein: entrypoint.sh).

@@ -1,0 +1,58 @@
+<include>
+<gateway name="AirtelPRI">
+    <param name="username" value="+912717428900" />
+    <param name="password" value="Keyann#1" />
+    <param name="realm" value="gj.ims.airtel.in"/> <!-- Corrected realm --> 
+    <param name="proxy" value="10.5.110.101"/> <!-- Corrected proxy -->
+    <param name="register" value="true" />
+    <param name="auth-username" value="+912717428900@gj.ims.airtel.in" />
+    <param name="caller-id-in-from" value="true" />
+    <param name="from-domain" value="gj.ims.airtel.in" /> <!-- Corrected from-domain -->
+    <param name="from-user" value="+912717428900" />
+    <param name="expire-seconds" value="3600" /> <!-- Increased expiration -->
+    <param name="codec-string" value="PCMU,PCMA" /> <!-- Increased expiration -->
+    <param name="ping" value="60" />
+    <param name="extension" value="+912717428900" />
+    <param name="retry-seconds" value="60" />
+</gateway>
+
+  <!--<gateway name="asterlink.com">-->
+  <!--/// account username *required* ///-->
+  <!--<param name="username" value="cluecon"/>-->
+  <!--/// auth realm: *optional* same as gateway name, if blank ///-->
+  <!--<param name="realm" value="asterlink.com"/>-->
+  <!--/// username to use in from: *optional* same as  username, if blank ///-->
+  <!--<param name="from-user" value="cluecon"/>-->
+  <!--/// domain to use in from: *optional* same as  realm, if blank ///-->
+  <!--<param name="from-domain" value="asterlink.com"/>-->
+  <!--/// account password *required* ///-->
+  <!--<param name="password" value="2007"/>-->
+  <!--/// extension for inbound calls: *optional* same as username, if blank ///-->
+  <!--<param name="extension" value="cluecon"/>-->
+  <!--/// proxy host: *optional* same as realm, if blank ///-->
+  <!--<param name="proxy" value="asterlink.com"/>-->
+  <!--/// send register to this proxy: *optional* same as proxy, if blank ///-->
+  <!--<param name="register-proxy" value="mysbc.com"/>-->
+  <!--/// expire in seconds: *optional* 3600, if blank ///-->
+  <!--<param name="expire-seconds" value="60"/>-->
+  <!--/// do not register ///-->
+  <!--<param name="register" value="false"/>-->
+  <!-- which transport to use for register -->
+  <!--<param name="register-transport" value="udp"/>-->
+  <!--How many seconds before a retry when a failure or timeout occurs -->
+  <!--<param name="retry-seconds" value="30"/>-->
+  <!--Use the callerid of an inbound call in the from field on outbound calls via this gateway -->
+  <!--<param name="caller-id-in-from" value="false"/>-->
+  <!--extra sip params to send in the contact-->
+  <!--<param name="contact-params" value=""/>-->
+  <!-- Put the extension in the contact -->
+  <!--<param name="extension-in-contact" value="true"/>-->
+  <!--send an options ping every x seconds, failure will unregister and/or mark it down-->
+  <!--<param name="ping" value="25"/>-->
+  <!--<param name="cid-type" value="rpid"/>-->
+  <!--rfc5626 : Abilitazione rfc5626 ///-->
+  <!--<param name="rfc-5626" value="true"/>-->
+  <!--rfc5626 : extra sip params to send in the contact-->
+  <!--<param name="reg-id" value="1"/>-->
+  <!--</gateway>-->
+</include>

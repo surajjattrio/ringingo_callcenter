@@ -1,0 +1,46 @@
+<configuration name="opus.conf">
+    <settings>
+
+        <!-- ══════════ NARROWBAND FORCE ══════════
+             Trunk (GSM/PSTN gateway) PCMA/PCMU = 8 kHz hai.
+             Isse upar ka audio gateway pe waise bhi cut ho jaata hai,
+             isliye 8 kHz pe force karna pure win hai:
+             bandwidth ~78% kam, quality me koi loss nahi.
+
+             NOTE: SDP me hamesha "opus/48000/2" dikhega (RFC 7587).
+             Asli control neeche wale fmtp params se hota hai. -->
+        <param name="maxplaybackrate"      value="8000"/>
+        <param name="sprop-maxcapturerate" value="8000"/>
+
+        <!-- Bitrate ceiling. 8 kHz narrowband ke liye 16 kbps sweet spot.
+             Bahut tight bandwidth ho to 12000 kar sakte hain. -->
+        <param name="maxaveragebitrate"    value="16000"/>
+
+        <!-- ══════════ ANTI VOICE-BREAKAGE ══════════
+             Yahi OPUS ka asli faayda hai G.711 ke muqable.
+             FEC = har packet me pichhle frame ki redundant copy,
+             packet loss pe agla packet usko recover kar leta hai.
+             G.711 me ye bilkul nahi hota. -->
+        <param name="keep-fec-enabled"     value="1"/>
+        <param name="packet-loss-percent"  value="10"/>
+        <param name="adjust-bitrate"       value="1"/>
+        <param name="use-jb-lookahead"     value="true"/>
+
+        <!-- ══════════ BANDWIDTH ══════════
+             VBR = better quality per bit
+             DTX = silence me packets bhejna band, bada saver -->
+        <param name="use-vbr"              value="1"/>
+        <param name="use-dtx"              value="1"/>
+
+        <!-- ══════════ CPU ══════════
+             10 -> 5 -> 1 (2026-09-04): sirf 4 cores hain aur OPUS<->PCMU
+             transcoding chal rahi hai. Narrowband (8 kHz) pe encoder ka
+             search space itna chhota hai ki complexity 1 aur 10 me farak
+             practically sunayi nahi deta - lekin CPU kaafi kam ho jaata hai. -->
+        <param name="complexity"           value="1"/>
+
+        <!-- Mono force. switch.conf.xml me max-audio-channels=1 bhi set hai. -->
+        <param name="mono"                 value="1"/>
+
+    </settings>
+</configuration>

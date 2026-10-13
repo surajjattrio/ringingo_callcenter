@@ -1,0 +1,9 @@
+# Build with version tag (example v1.0.0)
+docker build -t triotechltd/ivr-freeswitch-container:v1.0.0 .
+
+# Tag it as latest too
+docker tag triotechltd/ivr-freeswitch-container:v1.0.0 triotechltd/ivr-freeswitch-container:latest
+
+# Push both to Docker Hub
+docker push triotechltd/ivr-freeswitch-container:v1.0.0
+docker push triotechltd/ivr-freeswitch-container:latest
